@@ -16,7 +16,7 @@ isort==5.13.1
 marvel==0.1.0
 maturin==1.4.0
 mccabe==0.7.0
-mysqlclient==2.1.0
+# mysqlclient==2.1.0
 packaging==23.2
 pillow==10.2.0
 platformdirs==3.11.0

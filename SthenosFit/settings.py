@@ -33,7 +33,7 @@ SECRET_KEY = "django-insecure-n2r(&78)7$4e_gr+-e(tg9$-n=ajhbc!taci8-*(w52_tj6@&!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 AUTH_USER_MODEL = "usuarios.Usuario"
-ALLOWED_HOSTS = ["127.0.0.1,https://sthenos-fit.up.railway.app/"]
+ALLOWED_HOSTS = ["127.0.0.1", "sthenos-fit.up.railway.app"]
 # "sthenos-fit.up.railway.app",
 
 # Application definition
@@ -90,26 +90,24 @@ WSGI_APPLICATION = "SthenosFit.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-
-
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "railway",
-        "HOST": "roundhouse.proxy.rlwy.net",
-        "PORT": "44859",
-        "USER": "root",
-        "PASSWORD": "hc4c4314f-6gha-dFfHfhHfEAf2CEBc5",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "railway",
+#         "HOST": "roundhouse.proxy.rlwy.net",
+#         "PORT": "44859",
+#         "USER": "root",
+#         "PASSWORD": "hc4c4314f-6gha-dFfHfhHfEAf2CEBc5",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
