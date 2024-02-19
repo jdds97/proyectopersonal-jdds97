@@ -90,39 +90,26 @@ WSGI_APPLICATION = "SthenosFit.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+
+
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "railway",
+        "HOST": "roundhouse.proxy.rlwy.net",
+        "PORT": "44859",
+        "USER": "root",
+        "PASSWORD": "hc4c4314f-6gha-dFfHfhHfEAf2CEBc5",
     }
 }
-
-
-# BASE DE DATOS PLANET SCALE CON ARCHIVO .ENV
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": os.environ.get("DB_NAME"),
-#         "HOST": os.environ.get("DB_HOST"),
-#         "PORT": os.environ.get("DB_PORT"),
-#         "USER": os.environ.get("DB_USER"),
-#         "PASSWORD": os.environ.get("DB_PASSWORD"),
-#         "OPTIONS": {"ssl": {"ca": os.environ.get("MYSQL_ATTR_SSL_CA")}},
-#     }
-# }
-
-
-#
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": "railway",
-#         "HOST": "roundhouse.proxy.rlwy.net",
-#         "PORT": "44298",
-#         "USER": "root",
-#         "PASSWORD": "HAHe2DChhDcHcHfDG61cbdGhg25fhCCC",
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
