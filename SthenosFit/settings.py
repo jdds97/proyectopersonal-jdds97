@@ -33,7 +33,7 @@ SECRET_KEY = "django-insecure-n2r(&78)7$4e_gr+-e(tg9$-n=ajhbc!taci8-*(w52_tj6@&!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 AUTH_USER_MODEL = "usuarios.Usuario"
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1,https://sthenos-fit.up.railway.app/"]
 # "sthenos-fit.up.railway.app",
 
 # Application definition
