@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Quinn';
+  src: url('/SthenosFit/static/fonts Bold.otf') format('opentype');
+}
+
+  h1, h2, h3, h4, h5, h6,p {
+    color:rgb(20, 20, 20);
+  }
+  a.nav-link {
+    color: yellow;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 2;
+  }
+  /*Centrar los items de la navbar al centro*/
+  nav{
+    display: flex;
+    justify-content: center;
+  }
+#submit{
+    position: relative;
+   
+
+}

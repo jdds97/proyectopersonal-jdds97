@@ -1,0 +1,63 @@
+{% extends "clases/index.html" %}{% load static %}{%block title%}Búsqueda clase{%endblock %}
+
+{%block body %}
+<form method="get">
+  {% csrf_token %} {{ form_filtros.as_p }}
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+</form>
+<h1 class="text-center">Clases encontradas</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre de la clase</th>
+      <th>Duración</th>
+      <th>Instructor</th>
+      <th>Cupos disponibles</th>
+      <th>Fecha</th>
+      <th>Imagen</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for clase in clase_list %}
+    <tr>
+      <td>{{clase.tipo_clase.nombre}}</td>
+      <td>{{clase.tramo}} Minutos</td>
+      <td>{{clase.instructor}}</td>
+      <td>{{clase.cupos_disponibles}}</td>
+      <td>{{clase.fecha_clase}}</td>
+      <td>
+        {%if clase.imagen%}
+        <img src="{{clase.imagen.url}}" alt="Imagen de la clase" class="img-fluid mb-3" />
+        {%endif%}
+      </td>
+      <td>
+        <a class="btn btn-success" href="{%url 'detalle_clase' clase.pk %}">Detalle clase</a>
+        {%if request.user.is_staff and request.is_superuser%}
+        <a class="btn btn-warning" href="{% url 'editar_clase' clase.pk %}">Editar clase</a>
+        <a class="btn btn-danger" href="{% url 'eliminar_clase' clase.pk %}">Eliminar clase</a>
+        {%endif%}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+<!-- Pagination -->
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.previous_page_number }}">Página anterior</a>
+    {% endif %}
+
+    <span class="current-page">{{ page_obj.number }}</span>
+
+    {% if page_obj.has_next %}
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.next_page_number }}" class="text-black">Siguiente</a>
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.paginator.num_pages }}"class="text-black">Ultima &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock %}

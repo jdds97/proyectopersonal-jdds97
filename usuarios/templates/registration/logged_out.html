@@ -1,0 +1,14 @@
+{% extends 'clases/base.html'%} {% load static %}{%block title%}Registro de usuario{%endblock %} {%block body%}
+
+
+<h2>Sesión cerrada</h2>
+<p>
+  Has cerrado sesión. Puedes volver a iniciar sesión
+  <button class="btn btn-primary">
+    <a class="text-white" href="{% url 'login' %}">aquí</a>
+  </button>
+</p>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'tienda/base.html'%}{%block title%}Nuevo producto{%endblock %}
+{%block other_content %}Nuevo producto {% endblock %} {%block content%}
+<form
+  action="{% url 'crear_producto'%}"
+  method="post"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %} {{ form.as_p }}
+  <input type="submit" value="Guardar" />
+</form>
+{%endblock %}

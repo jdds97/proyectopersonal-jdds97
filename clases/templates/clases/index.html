@@ -1,0 +1,68 @@
+{% extends 'clases/base.html' %} {% load static %} {% block title %}Clases
+{%endblock %} {% block body %}
+
+<div class="row mb-5">
+  <h1 class="display-2  ">Clases</h1>
+  <div class="col-12">
+    {%if request.user.is_authenticated %}
+
+    <p class="display-5 ">
+      Ahora {{request.user.first_name|default:request.user.username}}, estás en
+      el apartado de clases de Sthenos Fitness , elige lo que quieras
+    </p>
+    {%else%}
+    <h2 class="display-5 ">
+      Bienvenido a las clases de Sthenos Fitness
+    </h2>
+    {%endif%}
+  </div>
+</div>
+<div class="row d-flex row-gap-3">
+  <div class="col-6">
+    <h1 class="display-4">Clases</h1>
+    {%if request.user.is_staff or request.is_superuser%}
+    
+    <a href="{%url 'crear_clase'%}" class="btn btn-primary"> Nueva clase </a>
+    <a href="{%url 'listar_clases'%}" class="btn btn-primary"
+      >Ver todas las clases
+    </a>
+    <a href="{%url 'top_ten_clases'%}" class="btn btn-primary"
+      ><i class="bi bi-fire">Top 10 clases</i>
+    </a>
+
+    {%else%}
+    <a href="{%url 'listar_clases'%}" class="btn btn-primary">Ver clases </a>
+    <a href="{%url 'buscar_clase_general'%}" class="btn btn-success"
+      >Buscar clases</a
+    >
+    {%endif%}
+  </div>
+
+  <div class="col-6">
+    {%if request.user.is_authenticated%}
+    <h1 class="display-4">Reservas</h1>
+    {%if request.user.is_staff %}
+    
+    <a href="{%url 'listar_reservas'%}" class="btn btn-primary"
+      >Ver todas las reservas
+    </a>
+    {%endif%}
+    {%if request.user.cliente %}
+    
+    <a
+      href="{% url 'reservas_cliente' request.user.username request.user.pk %}"
+      class="btn btn-primary"
+      >Mis reservas
+    </a>
+    {%endif%} 
+  
+    {%endif%}
+    {%if request.user.is_anonymous%}
+    <h1 class="display-4">Si quieres ver más</h1>
+    <a href="{%url 'login'%}" class="btn btn-primary">Inicia sesión</a>
+    <a href="{%url 'registro'%}" class="btn btn-warning">Regístrate</a>
+    {%endif%}
+  </div>
+</div>
+
+{% endblock %}

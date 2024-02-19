@@ -1,0 +1,45 @@
+{% extends 'clases/index.html'%} {% load static %}{%block title%}Detalle
+clase{%endblock %} {%block body%}
+
+<h1 class="text-center">Detalle de la clase {{clase.tipo_clase}}</h1>
+<div class="row shadow-lg py-5 my-5 bg-white text-black">
+  <div class="col-12">
+
+    <h3>Duración</h3>
+    <p>{{clase.tramo}} Minutos</p>
+    <h3>Instructor </h3>
+    <p>{{clase.instructor}}</p>
+    <h3>Cupos disponibles </h3>
+    <p>{{clase.cupos_disponibles}}</p>
+    <h3>Fecha </h3>
+      <p>{{clase.fecha_clase}}</p>
+    <!--Imagen-->
+    {%if clase.imagen%}
+    <img
+      src="{{clase.imagen.url}}"
+      alt="Imagen de la clase"
+      class="img-fluid mb-3"
+    />
+    {%endif%} 
+    </br>
+    {% if request.user.is_authenticated and request.user.cliente%}
+    <a class="btn btn-success" href="{% url 'reservar_clase' clase.pk %}"
+      >Reservar clase</a
+    >
+    {% endif %} {%if request.user.is_staff and request.user.is_superuser%}
+    <a class="btn btn-success" href="{%url 'reservar_clase_staff' clase.pk %}"
+      >Reservar clase
+    </a>
+    <a class="btn btn-warning" href="{% url 'editar_clase' clase.pk %}">
+      Editar clase
+    </a>
+    <a class="btn btn-danger" href="{% url 'eliminar_clase' clase.pk %}">
+      Eliminar clase
+    </a>
+    {%endif%} {%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+  </div>
+</div>
+
+{%endblock %}

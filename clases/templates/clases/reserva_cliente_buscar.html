@@ -1,0 +1,34 @@
+{% extends "clases/base.html" %}{% load static %}{%block title%}Búsqueda
+reserva{%endblock %}{%block body%}
+
+  <form action="{% url 'reservas_clientes'%}" method="get">
+    {{form.as_p}}
+    <button class="btn btn-primary" type="submit">Buscar</button>
+  </form>
+  {%for reserva in reservas_cliente %}
+  <div class="row shadow-lg py-5 my-5 bg-white text-black">
+    <div class="col-12">
+      <h1>Clase{{reserva.clase.tipo_clase.nombre}}</h1>
+      <p>{{reserva.clase.instructor}}</p>
+      <p>{{reserva.fecha_reserva}}</p>
+      <form action="{%url 'cancelar_reserva' reserva.pk%}" method="post">
+        {{form.as_p}}
+        <button class="btn btn-danger" type="submit">Cancelar Reserva</button>
+      </form>
+      {%if request.user.is_staff and request.is_superuser%}
+      <a class="btn btn-warning" href="{% url 'editar_reserva' reserva.pk %}">
+        Editar Reserva
+      </a>
+      <a class="btn btn-danger" href="{% url 'eliminar_clase' reserva.pk %}">
+        Eliminar Reserva
+      </a>
+      {%endif%}
+    </div>
+  </div>
+
+  {%if messages%} {%for message in messages%}
+  <div class="alert alert-{{message.tags}}">{{message}}</div>
+  {%endfor%} {%endif%}
+
+
+{% endfor %} {% endblock %}

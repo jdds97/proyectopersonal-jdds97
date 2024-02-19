@@ -1,0 +1,109 @@
+{% extends 'clases/index.html'%}{% load static %} {%block title%}Listado de
+clases{%endblock%} {%block body%}
+<form class="form-inline my-2 my-lg-0" method="get" role="search">
+  {{form_filtros.as_p}}
+  <button class="btn btn-success my-2 my-sm-0" type="submit">
+    Buscar
+  </button>
+</form>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+{%if clases_buscadas%}
+<h1 class="text-center">Clases encontradas</h1>
+{%for clase in clases_buscadas%}
+<div class="row shadow-lg py-5 my-3 clase bg-white text-black rounded">
+  <div class="col-8">
+   
+    <h2>{{clase.tipo_clase.nombre}}</h2>
+    <p>Cupos disponibles {{clase.cupos_disponibles}}</p>
+    <p>Fecha  {{clase.fecha_clase}}</p>
+    <a class="btn btn-success" href="{%url 'detalle_clase' clase.pk %}">
+      Detalle clase
+    </a>
+    {%if request.user.is_staff and request.is_superuser%}
+    <a class="btn btn-warning" href="{% url 'editar_clase' clase.pk %}">
+      Editar clase
+    </a>
+    <a class="btn btn-danger" href="{% url 'eliminar_clase' clase.pk %}">
+      Eliminar clase
+    </a>
+    {%endif%}
+  </div>
+  <div class="col-4">
+   {%if clase.imagen%}
+    <img src="{{clase.imagen.url}}" class="img-fluid" alt="Imagen de la clase">
+    {%endif%}
+  </div>
+</div>
+{%endfor%} {%endif%} 
+{%if not clases_buscadas%}
+<h1 class="text-center">Listado de clases</h1>
+{%for clase in clase_list %}
+<div class="row shadow-lg py-5 my-3 clase bg-white text-black rounded">
+  <div class="col-8">
+   
+    <h2>{{clase.tipo_clase.nombre}}</h2>
+    <p>Cupos disponibles {{clase.cupos_disponibles}}</p>
+    <p>Fecha  {{clase.fecha_clase}}</p>
+    <a class="btn btn-success" href="{%url 'detalle_clase' clase.pk %}">
+      Detalle clase
+    </a>
+    {%if request.user.is_staff and request.is_superuser%}
+    <a class="btn btn-warning" href="{% url 'editar_clase' clase.pk %}">
+      Editar clase
+    </a>
+    <a class="btn btn-danger" href="{% url 'eliminar_clase' clase.pk %}">
+      Eliminar clase
+    </a>
+    {%endif%}
+  </div>
+  <div class="col-4">
+    {%if clase.imagen%}
+    <img src="{{clase.imagen.url}}" class="img-fluid" alt="Imagen de la clase">
+    {%endif%}
+  </div>
+</div>
+{%endfor%} 
+{%if request.user.is_superuser or request.user.is_staff%}
+<h1 class="text-center">Clases antiguas</h1>
+{%for clase in clases_antiguas%}
+<div class="row shadow-lg py-5 my-3 clase bg-white text-black rounded">
+  <div class="col-8">
+   
+    <h2>{{clase.tipo_clase.nombre}}</h2>
+    <p>Cupos disponibles {{clase.cupos_disponibles}}</p>
+    <p>Fecha  {{clase.fecha_clase}}</p>
+    <a class="btn btn-success" href="{%url 'detalle_clase' clase.pk %}">
+      Detalle clase
+    </a>
+    <a class="btn btn-warning" href="{% url 'editar_clase' clase.pk %}">
+      Editar clase
+    </a>
+    <a class="btn btn-danger" href="{% url 'eliminar_clase' clase.pk %}">
+      Eliminar clase
+    </a>
+  </div>
+  <div class="col-4">
+    {%if clase.imagen%}
+    <img src="{{clase.imagen.url}}" class="img-fluid" alt="Imagen de la clase">
+    {%endif%}
+  </div>
+</div>
+{%endfor%}
+{%endif%}
+{%endif%}
+<!-- Pagination -->
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.previous_page_number }}">Página anterior</a>
+    {% endif %}
+    <span class="current-page">{{ page_obj.number }}</span>
+    {% if page_obj.has_next %}
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.next_page_number }}" class="text-black">Siguiente</a>
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.paginator.num_pages }}"class="text-black">Ultima &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{%endblock%}

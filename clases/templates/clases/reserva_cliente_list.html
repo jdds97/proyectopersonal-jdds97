@@ -1,0 +1,46 @@
+{% extends 'clases/base.html'%}{%block title%}Lista Reservas Cliente{%endblock %}
+{%block body%}
+<form class="form-inline my-2 my-lg-0" method="get" action"{% url 'reservas_cliente' request.user.username request.user.pk%}">
+  {{form.as_p}}
+  <button class="btn btn-success my-2 my-sm-0" type="submit">
+    Buscar
+  </button>
+</form>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+<h1>Clases de {{request.user}}</h1>
+{%for reserva in reserva_list %}
+<div class="row shadow-lg bg-white clase py-5 my-3 rounded text-black">
+  <div class="col-12">
+    <h2>{{reserva.clase.tipo_clase.nombre}}</h2>
+    <h3>Duración: </h3>
+    <p>{{reserva.clase.tramo}} minutos</p>
+    <h3>Instructor: </h3>
+    <p>{{reserva.clase.instructor}}</p>
+<p>Estado: {{reserva.estado}}</p>
+    
+    <h3>Fecha: </h3>
+    <p>{{reserva.clase.fecha_clase}}</p>
+    <a class="btn btn-success" href="{%url 'detalle_reserva' reserva.pk %}"
+      >Detalle Reserva
+    </a>
+  </div>
+</div>
+  {% endfor %} 
+  <!-- Pagination -->
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+      
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.previous_page_number }}">Página anterior</a>
+    {% endif %}
+
+    <span class="current-page">{{ page_obj.number }}</span>
+
+    {% if page_obj.has_next %}
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.next_page_number }}" class="text-black">Siguiente</a>
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.paginator.num_pages }}"class="text-black">Ultima &raquo;</a>
+    {% endif %}
+  </span>
+</div>{% endblock %}

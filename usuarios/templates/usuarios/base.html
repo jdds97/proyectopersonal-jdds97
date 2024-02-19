@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %} {% load static %} {% block title%}{%endblock%}
+
+{%block navbar %}
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="{%url 'usuarios_welcome'%}"
+    >Inicio Usuario</a
+  >
+</li>
+{% if request.user.is_staff or request.is_superuser %}
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="{%url 'listar_clientes'%}"
+    >Lista Usuarios</a
+  >
+</li>
+{% endif %}
+{% if request.user.cliente %}
+
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="{% url 'reservas_cliente' request.user.username request.user.pk %}"
+    >Mis Reservas</a
+  >
+</li>
+{% endif %}
+{% endblock %}
+{% block buscador %}
+<form method="GET" action="{% url 'buscar_cliente_general' %}" class="g-0">
+    {{ form_usuarios}}
+    <input class="btn btn-outline-success my-2 my-sm-0" value="Buscar" type="submit" id="submit"/>
+  </form>
+{% endblock %}

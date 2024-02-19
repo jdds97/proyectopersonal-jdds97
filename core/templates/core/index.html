@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %} {% load static %} {% block title%}Inicio{%endblock%}
+<h1>Bienvenido a Sthenos Fit</h1>
+{%block css %}
+<link rel="stylesheet" href="{% static '/core/css/main.css' %}" />{%endblock %} 
+
+{% block navbar %}
+<li class="nav-item">
+  <a class="nav-link " aria-current="page" href="{%url 'clases_welcome'%}"
+    >Clases</a
+  >
+</li>
+
+{% if request.user.is_authenticated %}
+
+<li class="nav-item">
+  <a class="nav-link " href="{% url 'usuarios_welcome' %}">Usuarios</a>
+</li>
+{% if request.user.is_staff or request.user.is_superuser %}
+<li class="nav-item">
+  <a class="nav-link " href="api/v1/clientes/">Api clientes</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link " href="api/v1/clases/">Api clases</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link " href="api/v1/usuarios/">Api usuarios</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link " href="api/v1/reservas/">Api reservas</a>
+{% endif %}
+{% else %}
+<li class="nav-item">
+  <a class="nav-link " href="#footer">Contacto</a>
+</li>
+{% endif %}
+ {% endblock %} 
+ {% block body %}
+
+<div class="row">
+  <h1 class="display-2"></h1>
+  <div class="col-12">
+    {%if request.user.is_authenticated %}
+    <h2 class="display-5">
+      Bienvenido a Sthenos Fitness
+      {{request.user.first_name|default:request.user.username}}
+    </h2>
+    {%else%}
+    <h2 class="display-5">Bienvenido a Sthenos Fitness</h2>
+    {%endif%}
+ 
+  </div>
+  <video
+  src="{% static 'core/video/fitness.mp4' %}"
+  width="100%"
+  height="100%"
+  autoplay
+  loop
+  muted
+  class=" rounded video z-index: 3"
+></video>
+  <div class="container">{%block content %}{%endblock%}</div>
+</div>
+{% endblock %}

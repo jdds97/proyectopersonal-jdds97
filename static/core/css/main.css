@@ -1,0 +1,72 @@
+@font-face {
+  font-family: 'Quinn';
+  src: url('/static/fonts/Quinn\ Bold.otf') format('opentype');
+}
+  
+.navbar {
+  background: transparent;
+}
+body{
+  font-family:  'Quinn';
+  min-height: 100vh;
+  background-image: url("../img/base.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+  color: white;
+  display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+main {
+  flex: 1;
+}
+a{
+
+  text-decoration: none;
+
+}
+a.nav-link {
+  margin-top: 20px;
+  color: yellow;
+  font-size: large;
+  font-weight: bold;
+  text-decoration: none;
+  z-index: 2;
+}
+form,a.btn{
+  margin-top: 20px;
+  margin-left: 20px;
+  color: white;
+  font-size: large;
+  font-weight: bold;
+  text-decoration: none;
+  z-index: 2;
+
+}
+#icono{
+  position: relative;
+  margin-top: 10px;
+  margin-left: 20px;
+ 
+
+}
+#footer {
+
+  bottom: 0;
+  width: 100%;
+  background-color:none;
+  text-align: center;
+  padding: 10px;
+  z-index: 2;
+  color: white;
+}
+#submit{
+  position: relative;
+ 
+}
+
+

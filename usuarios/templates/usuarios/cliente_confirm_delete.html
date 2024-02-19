@@ -1,0 +1,18 @@
+{% extends "usuarios/base.html" %}{% load static %}{%block title%}Eliminar
+usuario{%endblock %} {%block body%}
+
+  <h1>Eliminar reserva</h1>
+  <form method="post">
+    {% csrf_token %}
+    <p>
+      ¿Estas seguro de que quieres eliminar el usuario?
+    </p>
+    {{ form.as_p }}
+    <input type="submit" value="Eliminar" class="btn btn-danger" />
+    <a href="{% url 'listar_clientes' %}" class="btn btn-primary">Cancelar</a>
+  </form>
+
+  {%if messages%} {%for message in messages%}
+  <div class="alert alert-{{message.tags}}">{{message}}</div>
+  {%endfor%} {%endif%}
+{%endblock %}

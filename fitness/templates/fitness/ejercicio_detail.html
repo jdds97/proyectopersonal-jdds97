@@ -1,0 +1,30 @@
+{% extends 'tienda/base.html'%}{%block title%}Detalle producto{%endblock %}
+{%block other_content %}Compra {{compra.pk}}{% endblock %} {%block content%}
+<div class="row shadow-lg py-5 my-5">
+  <div class="col-4 thumbnail">
+    {%if compra.producto.imagen%}
+    <img
+      src="{{ compra.producto.imagen.url}}"
+      alt="{{
+          compra.producto.nombre
+          }}"
+      class="img-fluid d-flex justify-content-end"
+    />
+    {%endif%}
+  </div>
+  <div class="col-8 caption">
+    <h3>{{compra.producto.nombre}}</h3>
+    <p>{{compra.producto.modelo}}</p>
+    <p>{{compra.usuario}}</p>
+    <p>{{compra.fecha}}</p>
+    <p>{{compra.importe}}</p>
+
+    <a class="btn btn-danger" href="{% url 'eliminar_compra' producto.pk %}">
+      Detalle compra
+    </a>
+    <a class="btn btn-danger" href="{% url 'editar_compra' producto.pk %}">
+
+  </div>
+</div>
+
+{%endblock %}

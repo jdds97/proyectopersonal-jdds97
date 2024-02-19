@@ -1,0 +1,18 @@
+{% extends 'clases/index.html'%}{% load static %}{%block title%}Nueva
+clase{%endblock%} {%block body%}
+
+<h1 class="text-center">Nueva clase</h1>
+<form
+  action="{% url 'crear_clase'%}"
+  method="post"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="btn btn-primary" value="Guardar">
+    <i class="bi bi-save"> </i>Guardar
+  </button>
+</form>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+{%endblock %}

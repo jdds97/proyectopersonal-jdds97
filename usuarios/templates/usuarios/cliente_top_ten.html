@@ -1,0 +1,20 @@
+{% extends "usuarios/base.html" %}{%block title%}Top ten clientes{%endblock %}
+{%block other_content %}Ranking 10 mejores clientes{% endblock %} {%block body %} 
+<div class="row shadow-lg  bg-white  px-5 py-5 my-5">
+    <table class="text-dark">
+      <th>Nombre</th>
+      <th>Nºde reservas</th>
+      <th>Clase favorita</th>
+      {%for cliente in mejores_clientes %}
+      <tr>
+        <td>{{cliente}}{{cliente.first_name}} {{cliente.last_name}}</td>
+        <td>{{cliente.num_reservas}}</td>
+        <td>{{cliente.clase_mas_visitada}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {%if messages%} {%for message in messages%}
+  <div class="alert alert-{{message.tags}}">{{message}}</div>
+  {%endfor%} {%endif%}
+   {% endblock %}

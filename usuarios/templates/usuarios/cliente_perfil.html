@@ -1,0 +1,38 @@
+{% extends 'clases/base.html'%} {% load static %}{%block title%}Detalle
+clase{%endblock %} {%block body%}
+
+<h1 class="text-center">Mi perfil</h1>
+<div class="row shadow-lg  bg-white text-black py-5 my-5">
+  
+  <div class="col-md-6">
+    <h3 >Datos personales</h3>
+    <p>Nombre: {{ cliente.user.first_name }}</p>
+    <p>Apellido: {{ cliente.user.last_name }}</p>
+    <p>Email: {{ cliente.user.email }}</p>
+    <p>Fecha de nacimiento: {{ cliente.fecha_nacimiento }}</p>
+    <a  class="btn btn-primary"href="{% url 'editar_cliente' cliente.username cliente.pk %}">Editar datos personales</a>
+  </div>
+  <div class="col-md-6">
+    <h3 >Datos de membresía</h3>
+    
+    <p>Estado de membresía: {{ cliente.estado_membresia }}</p>
+    <p>Fecha de inicio de membresía: {{ cliente.date_joined }}</p>
+    {% if cliente.estado_membresia == 'Inactiva' %}
+    <p>Fecha de vencimiento de membresía: {{ cliente.fecha_baja }}</p>
+    
+    {%else %}
+    <p> {{ cliente.rutina_asignada }}</p>
+    <p>Clases apuntadas:</p>
+    <ul>
+      {% for clase in cliente.clases_apuntadas.all %}
+        <li>{{ clase }}</li>
+      {% endfor %}
+    </ul>
+    <a class="btn btn-danger" href="{% url 'cancelar_membresia' cliente.username cliente.pk %}">Cancelar membresía</a>
+    {% endif %}
+  </div>
+</div>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+{%endblock %}

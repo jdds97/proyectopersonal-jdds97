@@ -1,0 +1,20 @@
+{% extends 'clases/base.html'%} {% load static %}{%block title%}Detalle
+clase{%endblock %} {%block body%}
+
+<h1 class="text-center">Confirmar anulación membresía</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %} 
+    <label >¿Está seguro que desea anular la membresía?</label>
+    <label>{{form.estado_membresia.label}}</label>
+    <br>
+    <div >
+        {{form.estado_membresia}}
+    </div>
+    <button type="submit" class="btn btn-primary">Confirmar</button>
+    <a href="{% url 'mi_perfil' cliente.username cliente.pk %}" class="btn btn-danger">Cancelar</a>
+  </form>
+  {%if messages%} {%for message in messages%}
+  <div class="alert alert-{{message.tags}}">{{message}}</div>
+  {%endfor%} {%endif%}
+
+{%endblock %}

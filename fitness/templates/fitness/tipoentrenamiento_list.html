@@ -1,0 +1,36 @@
+{% extends 'tienda/base.html'%}{%block title%}Lista Productos{%endblock %}
+{%block other_content %}Listado Productos{% endblock %} {%block content%} 
+{%for producto in producto_list%}
+<div class="row shadow-lg py-5 my-3">
+  <div class="col-4 thumbnail">
+    {%if producto.imagen%}
+    <img
+      src="{{ producto.imagen.url}}"
+      alt="{{
+          producto.nombre
+          }}"
+      class="img-fluid d-flex justify-content-end"
+    />
+    {%endif%}
+  </div>
+  <div class="col-8 caption">
+    <h3>{{producto.nombre}}</h3>
+    <p>{{producto.marca}}</p>
+    <p>{{producto.modelo}}</p>
+    <p>{{producto.precio}}</p>
+    <p>{{producto.unidades}}</p>
+    <p>{{producto.vip}}</p>
+    <a class="btn btn-warning" href="{% url 'editar_producto' producto.pk %}">
+      Editar producto
+    </a>
+    <a class="btn btn-success" href="{%url 'detalle_producto' producto.pk %}"
+    >Detalle producto
+  </a>
+    <a class="btn btn-danger" href="{% url 'eliminar_producto' producto.pk %}">
+      Eliminar producto
+    </a>
+   
+  </div>
+</div>
+
+{%endfor%} {%endblock%}

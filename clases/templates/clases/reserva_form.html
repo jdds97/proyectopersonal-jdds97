@@ -1,0 +1,22 @@
+{% extends 'clases/base.html'%} {%block title%}Nueva reserva{%endblock %}
+{%block body%}
+
+  <h1 class="text-center">Nueva reserva</h1>
+  <form action="{% url 'reservar_clase' clase.pk%}" method="post">
+    {% csrf_token %} {{ form.as_p }}
+    <div class="text-center">
+    <p>¿Estás seguro de que quieres reservar esta clase?</p>
+    <p>Fecha: {{clase.fecha_clase}}</p>
+    <p>Hora: {{clase.fecha_clase.hour}}:{{clase.fecha_clase|date:"i"}} </p>
+    <p>Instructor: {{clase.instructor}}</p>
+
+      <button type="submit" class="btn btn-primary">
+        Reservar
+      </button>
+    
+    <a href="{% url 'listar_clases' %}" class="btn btn-danger">Cancelar</a>
+  </div>
+  </form>
+
+
+{%endblock %}

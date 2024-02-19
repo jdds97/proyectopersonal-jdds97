@@ -1,0 +1,19 @@
+{% extends "clases/base.html" %}{% load static %}{%block title%}Cancelar
+reserva{%endblock %} {%block body%}
+
+  <h1>Cancelar reserva</h1>
+  <form method="post" action="{% url 'cancelar_reserva' reserva.pk%}">
+    {% csrf_token %}
+    <p>
+      ¿Estas seguro de que quieres cancelar la reserva <b>{{reserva.usuario}}</b> con fecha <b>{{reserva.clase.fecha_clase}}</b> de la clase
+      <b>{{reserva.clase.tipo_clase.nombre}}?</b>
+    </p>
+    {{ form.as_p }}
+    <input type="submit" value="Aceptar" class="btn btn-danger" />
+    <a href="{% url 'listar_reservas' %}" class="btn btn-success">Cancelar</a>
+  </form>
+  {%if messages%} {%for message in messages%}
+  <div class="alert alert-{{message.tags}}">{{message}}</div>
+  {%endfor%} {%endif%}
+
+{%endblock %}

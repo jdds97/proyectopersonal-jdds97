@@ -1,0 +1,14 @@
+{% extends 'clases/base.html'%} {% load static %}{%block title%}Detalle
+clase{%endblock %} {%block body%}
+
+<h1 class="text-center">Editar datos personales</h1>
+  <form method="post" enctype="multipart/form-data" class="form">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+
+  {%if messages%} {%for message in messages%}
+  <div class="alert alert-{{message.tags}}">{{message}}</div>
+  {%endfor%} {%endif%}
+{%endblock %}

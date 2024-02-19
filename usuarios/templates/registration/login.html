@@ -1,0 +1,35 @@
+{% extends 'clases/base.html'%} {% load static %}{%block title%}Registro de usuario{%endblock %} {%block body%}
+
+
+<h1 class="text-center">Inicio Sesión</h1>
+<form
+    action="{% url 'login'%}"
+    method="post"
+    enctype="multipart/form-data"
+    class="form-group"
+>
+    {% csrf_token %}
+    <div class="mb-3 text-center ">
+        <label>{{ form.username.label_tag }}    </label>
+        <br>
+        {{ form.username }}   
+    </div>
+    <div class="mb-3 text-center">
+        <label>{{ form.password.label_tag }} </label>
+        <br>
+        {{ form.password }}
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-success text-center" value="Registrarse">
+            Iniciar Sesión
+        </button>
+        <button class="btn btn-danger"><a href="{% url 'core_welcome' %}" class="text-white" style="text-decoration: none;">
+            Cancelar
+        </a>
+        </button>
+    </div>
+</form>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+{% endblock %}

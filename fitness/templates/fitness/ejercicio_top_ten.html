@@ -1,0 +1,22 @@
+{% extends "tienda/base.html" %}{%block title%}Top ten productos{%endblock %}
+{%block other_content %}Ranking 10 clases más asistidas{% endblock %} {%block content %} 
+<div class="row shadow-lg py-5 my-5">
+  <table class="table">
+    <th scope="col">Nombre</th>
+    <th scope="col">Marca</th>
+    <th scope="col">Modelo</th>
+    <th scope="col">Unidades Vendidas</th>
+    <th scope="col">Importe total</th>
+    {%for producto in productos %}
+    <tr>
+      <td>{{producto.nombre}}</td>
+      <td>{{producto.marca}}</td>
+      <td>{{producto.modelo}}</td>
+      <td>{{producto.sum_ventas}}</td>
+      <td>{{producto.sum_importes}}</td>
+    </tr>
+    {% endfor %} 
+  </table>
+</div>
+
+{% endblock %}

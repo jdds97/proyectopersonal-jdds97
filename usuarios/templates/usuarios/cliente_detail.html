@@ -1,0 +1,19 @@
+{% extends 'clases/base.html'%} {% load static %}{%block title%}Detalle
+clase{%endblock %} {%block body%}
+
+<h1 class="text-center">Mi perfil</h1>
+<div class="row shadow-lg py-5 my-5">
+    <p>Rutina asignada: {{ cliente.rutina_asignada }}</p>
+    <p>Clases apuntadas:</p>
+    <ul>
+      {% for clase in cliente.clases_apuntadas.all %}
+        <li>{{ clase }}</li>
+      {% endfor %}
+    </ul>
+    <p>Estado de membresía: {{ cliente.estado_membresia }}</p>
+  </div>
+</div>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+{%endblock %}

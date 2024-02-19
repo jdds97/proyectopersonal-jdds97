@@ -1,0 +1,123 @@
+{% extends 'usuarios/base.html'%}{% load static %} {%block title%}Listado de
+clases{%endblock%} {%block body%}
+<form class="form-inline my-2 my-lg-0" method="get" role="search">
+  {{form_filtros.as_p}}
+  <button class="btn btn-success my-2 my-sm-0" type="submit">
+    Buscar
+  </button>
+</form>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+{%if clientes_buscados%}
+<h1 class="text-center">Clientes encontradas</h1>
+{%for cliente in clientes_buscados%}
+<div class="row shadow-lg py-5 my-3 clase bg-white text-black rounded">
+    <div class="col-4">
+        {%if cliente.imagen%}
+        <img src="{{cliente.imagen.url}}" alt="{{cliente.first_name}}" class="img-fluid rounded">
+        {%else%}
+        <img src="{%static 'img/default.jpg'%}" alt="{{cliente.first_name}}" class="img-fluid">
+        {%endif%}
+    </div>
+  <div class="col-8">
+    <h2>Nombre</h2>
+    <p>{{cliente.first_name}}</p>
+    <h2>Apellido/s</h2>
+    <p>{{cliente.last_name}}</p>
+    <h2>Email</h2>
+    <p>{{cliente.email}}</p>
+    <h2>Fecha de registro</h2>
+    <p>{{cliente.date_joined}}</p>
+        <a class="btn btn-warning" href="{% url 'editar_cliente' cliente.username  cliente.pk %}">
+            Editar cliente
+        </a>
+        <a class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.pk %}">
+            Eliminar cliente
+        </a>
+
+    <a class="btn btn-success" href="{%url 'mi_perfil' cliente.username cliente.pk %}">Detalle cliente</a>
+  </div>
+</div>
+{%endfor%} {%endif%} 
+{%if not clientes_buscados%}
+<h1 class="text-center">Listado de Clientes</h1>
+{%for cliente in cliente_list%}
+<div class="row shadow-lg py-5 my-3 clase bg-white text-black rounded">
+    <div class="col-4">
+        {%if cliente.imagen%}
+        <img src="{{cliente.imagen.url}}" alt="{{cliente.first_name}}" class="img-fluid rounded">
+        {%else%}
+        <img src="{%static 'img/default.jpg'%}" alt="{{cliente.first_name}}" class="img-fluid">
+        {%endif%}
+    </div>
+  <div class="col-8">
+    <h2>Nombre</h2>
+    <p>{{cliente.first_name}}</p>
+    <h2>Apellido/s</h2>
+    <p>{{cliente.last_name}}</p>
+    <h2>Email</h2>
+    <p>{{cliente.email}}</p>
+    <h2>Fecha de registro</h2>
+    <p>{{cliente.date_joined}}</p>
+        <a class="btn btn-warning" href="{% url 'editar_cliente' cliente.username cliente.pk %}">
+            Editar cliente
+        </a>
+        <a class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.pk %}">
+            Eliminar cliente
+        </a>
+
+    <a class="btn btn-success" href="{%url 'mi_perfil' cliente.username cliente.pk %}">Detalle cliente</a>
+  </div>
+</div>
+{%endfor%} 
+
+<h1 class="text-center">Clientes antiguos</h1>
+{%for clase in clientes_antiguos%}
+
+<div class="row shadow-lg py-5 my-3 clase bg-white text-black rounded">
+    <div class="col-4">
+        {%if cliente.imagen%}
+        <img src="{{cliente.imagen.url}}" alt="{{cliente.first_name}}" class="img-fluid rounded">
+        {%else%}
+        <img src="{%static 'img/default.jpg'%}" alt="{{cliente.first_name}}" class="img-fluid">
+        {%endif%}
+    </div>
+  <div class="col-8">
+    <h2>Nombre</h2>
+    <p>{{cliente.first_name}}</p>
+    <h2>Apellido/s</h2>
+    <p>{{cliente.last_name}}</p>
+    <h2>Email</h2>
+    <p>{{cliente.email}}</p>
+    <h2>Fecha de registro</h2>
+    <p>{{cliente.date_joined}}</p>
+        <a class="btn btn-warning" href="{% url 'editar_cliente' cliente.username cliente.pk %}">
+            Editar cliente
+        </a>
+        <a class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.pk %}">
+            Eliminar cliente
+        </a>
+
+    <a class="btn btn-success" href="{%url 'mi_perfil' cliente.username cliente.pk %}">Detalle cliente</a>
+  </div>
+</div>
+{%endfor%}
+{%endif%}
+<!-- Pagination -->
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+      
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.previous_page_number }}">Página anterior</a>
+    {% endif %}
+
+    <span class="current-page">{{ page_obj.number }}</span>
+
+    {% if page_obj.has_next %}
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.next_page_number }}" class="text-black">Siguiente</a>
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.paginator.num_pages }}"class="text-black">Ultima &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{%endblock%}

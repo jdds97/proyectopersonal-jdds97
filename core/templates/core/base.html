@@ -1,0 +1,135 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'core/css/main.css' %}" />
+    {% endblock %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <header>
+    <nav class="navbar navbar-expand-lg ">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'core_welcome' %}">
+          {%block favicon%}
+          <img
+            src="{% static 'gimnasio_logos/favicon-blanco.png' %}"
+            alt="Logo"
+            width="50"
+            height="50"
+            id="logo"
+          />
+          {%endblock%}
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <div class="row w-100 justify-content-evenly">
+            <div class="col-auto">
+              <ul class="navbar-nav">
+                {% block navbar %}{% endblock %}
+              </ul>
+            </div>
+            <div class="col-auto">
+              <ul class="navbar-nav d-flex">
+                {%block buscador%}
+                <form method="GET" action="{% url 'buscar_clase_general' %}" class="g-0">
+                  {{ form_general }}
+                  <input class="btn btn-outline-success my-2 my-sm-0" value="Buscar" type="submit" id="submit"/>
+                </form>
+                {%endblock%}
+              
+             
+              
+              {% if request.user.is_anonymous %}
+              
+              <li class="nav-item ms-3 sesion">
+                <a class="btn btn-outline-warning" href="{% url 'login' %}">Iniciar sesión</a>
+              </li>
+              <li class="nav-item ms-3 sesion">
+                <a class="btn btn-warning" href="{% url 'registro' %}">Registrarse</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="btn btn-danger" href="{% url 'logout' %}">Cerrar sesión</a>
+              </li>
+              {% if request.user.cliente %}
+              <li class="nav-item">
+                <a class="btn btn-primary" href="{% url 'mi_perfil' request.user.username request.user.pk %}">Mi Perfil</a>
+              </li>
+              {%if request.user.imagen%}
+              <li class="nav-item">
+                <a href="{% url 'mi_perfil' request.user.username request.user.pk %}">                <img src="{{request.user.cliente.imagen.url}}" alt="Foto de perfil" width="50" height="50" class="rounded-circle border-2" id="icono" >
+                </a>
+              </li>
+              {%endif%}
+              {% endif %}
+            </ul>
+            {% endif %}
+          </div>  
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <body>
+    <main class="container mb-3">{% block body %}{% endblock %}</main>
+    {% block footer %}
+    <footer
+      class="container-fluid mt-5 bg-body-transparent text-center p-3  bottom-0" id="footer"
+    >
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <h5 class="text-center">Sthenos Fit</h5>
+          <p class="text-center">
+            <i class="bi bi-instagram"
+              ><a
+                href="https://www.instagram.com/sthenosfit/"
+                target="_blank"
+              ></a
+            ></i>
+
+            <i class="bi bi-facebook"
+              ><a href="https://www.facebook.com/sthenosfit" target="_blank"></a
+            ></i>
+          </p>
+        </div>
+        <div class="col-12 col-md-4">
+          <h5 class="text-center">Contacto</h5>
+        </div>
+      </div>
+    </footer>
+    {% endblock %}
+    
+  </body>
+</html>

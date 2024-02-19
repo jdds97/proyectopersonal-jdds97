@@ -1,0 +1,36 @@
+{% extends 'clases/base.html'%}{%block title%}Detalle reserva {%endblock %}
+{%block body%}
+<div class="container">
+  <h1 class="text-center">
+    Detalle de reserva con la clase {{reserva.clase.tipo_clase.nombre}}
+  </h1>
+  <div class="row shadow-lg py-5 my-5 bg-white text-black">
+    <div class="col-12">
+      <h3>Clase</h3>
+      <p>{{reserva.clase.tipo_clase.nombre}}</p>
+      <h3>Instructor</h3>
+      <p>{{reserva.clase.instructor}}</p>
+      <h3>Cliente</h3>
+      <p>{{reserva.usuario}}</p>
+      <h3>Fecha de la Clase</h3>
+      <p>{{reserva.clase.fecha_clase}}</p>
+      {%if reserva.estado == "Realizada" or reserva.estado == "Pendiente" %}
+      <a class="btn btn-warning" href="{%url 'cancelar_reserva' reserva.pk %}"
+        >Cancelar Reserva</a
+      >
+      {%endif%}
+      {%if request.user.is_staff and request.user.is_superuser%}
+      <a class="btn btn-primary" href="{% url 'editar_reserva' reserva.pk %}">
+        Editar Reserva
+      </a>
+      <a class="btn btn-danger" href="{% url 'eliminar_clase' reserva.pk %}">
+        Eliminar Reserva
+      </a>
+      {%endif%}
+    </div>
+  </div>
+</div>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+{%endblock %}

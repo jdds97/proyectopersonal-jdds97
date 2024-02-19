@@ -1,0 +1,53 @@
+{% extends 'clases/base.html'%} {% load static %}{%block title%}Top ten
+Clases{%endblock%} {%block body%}
+
+<h1>Ranking de 10 clases más asistidas semanalmente</h1>
+
+<div class="row shadow-lg py-5 my-3 bg-white">
+  <div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Número de asistencias</th>
+          <th scope="col">Nombre de la clase</th>
+          <th scope="col">Nombre del instructor</th>
+          <th scope="col">Cupos disponibles</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for clase in clases_top_ten %}
+        <tr>
+          <td>{{ clase.num_reservas }} personas</td>
+          <td>{{ clase.tipo_clase }}</td>
+          <td>{{ clase.instructor }}</td>
+          <td>{{ clase.cupos_disponibles }}</td>
+          <td>
+            <a class="btn btn-success" href="{% url 'detalle_clase' clase.pk %}">Detalle clase</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{%if messages%} {%for message in messages%}
+    <div class="alert alert-{{message.tags}}">{{message}}</div>
+    {%endfor%} {%endif%}
+<!-- Pagination -->
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+      
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.previous_page_number }}">Página anterior</a>
+    {% endif %}
+
+    <span class="current-page">{{ page_obj.number }}</span>
+
+    {% if page_obj.has_next %}
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.next_page_number }}" class="text-black">Siguiente</a>
+      <a href="{% url 'listar_clases'%}?page={{ page_obj.paginator.num_pages }}"class="text-black">Ultima &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+ {%endblock%}

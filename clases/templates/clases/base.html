@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %} {% load static %} {% block title%}{%endblock%}
+
+{%block navbar %}
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="{%url 'clases_welcome'%}"
+    >Inicio Clases</a
+  >
+</li>
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="{%url 'listar_clases'%}"
+    >Lista Clases</a
+  >
+</li>
+{% if request.user.is_staff or request.is_superuser %}
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'usuarios_welcome' %}">Usuarios</a>
+</li>
+{% endif %}
+{% if request.user.cliente %}
+  <a class="nav-link" href="{% url 'reservas_cliente' request.user.username request.user.pk %}">Reservas</a>
+{% elif request.user.is_staff or request.user.is_superuser %}
+  <a class="nav-link" href="{% url 'listar_reservas' %}">Reservas</a>
+{% endif %}
+
+
+{% endblock %} 
