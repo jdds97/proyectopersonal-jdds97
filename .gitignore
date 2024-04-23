@@ -134,3 +134,7 @@ dmypy.json
 .idea
 #certificates
 certs/
+
+#Node modules
+node_modules/
+env/
